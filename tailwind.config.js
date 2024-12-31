@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'grid-pattern': "url('./src/assets/background.png')"
+        'grid': "url('./src/assets/background.png')",
+        'grid-sm': "url('./src/assets/background_sm.png')"
       }
     },
   },
