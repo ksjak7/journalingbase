@@ -7,7 +7,7 @@ function Card(
   }
 ) {
   return (
-    <div className="w-[192px] h-[256px] outline outline-gray-400 outline-1 drop-shadow-md rounded-2xl bg-white p-2">
+    <div className="m-[32px] w-[192px] h-[256px] floater">
       <span>{title}</span>
     </div>
   )

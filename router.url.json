@@ -1,0 +1,6 @@
+{
+  "LOGIN": "/login",
+  "ACCOUNT": "/account",
+  "DASHBOARD": "/dashboard",
+  "JOURNAL": "/journal"
+}
