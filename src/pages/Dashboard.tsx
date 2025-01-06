@@ -2,12 +2,10 @@ import "../App.css";
 import Card from "../widgets/Card";
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-function Dashboard() {
+export default function Dashboard() {
   return (
-    <div className="">
+    <div>
       <Card title="Dashboard" />
     </div>
   );
 }
-
-export default Dashboard

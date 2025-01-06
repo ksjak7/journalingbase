@@ -9,6 +9,13 @@
   --text-on-primary: #000000;
   --text-on-secondary: #000000;
   --text-on-tertiary: #000000;
+  --primary-accent: #5ff06b;
+  --secondary-accent: #f0e65f;
+  --tertiary-accent: #65c1eb;
+  font-family: "Poiret One", serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,6 +26,9 @@
     --text-on-primary: #f6f6f6;
     --text-on-secondary: #f6f6f6;
     --text-on-tertiary: #f6f6f6;
+    --primary-accent: #af5ff0;
+    --secondary-accent: #5f9ef0;
+    --tertiary-accent: #ebb665;
   }
 }
 
@@ -32,7 +42,13 @@
   border-radius: 1rem; 
   background: var(--secondary);
   padding: 0.5rem;
-  color: var(--text-on-secondary)
+  color: var(--text-on-secondary);
+}
+
+.dotted-background {
+  background: radial-gradient(var(--tertiary) 1px, var(--primary) 1px);
+  background-size: 32px 32px;
+  background-position: center;
 }
 
 .background-primary {
@@ -78,6 +94,7 @@ h1 {
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  
 
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;

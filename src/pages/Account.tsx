@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import "../App.css";
-import Card from "../widgets/Card";
+import urls from "../../router.url.json"
+
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-function Account() {
+export default function Account() {
   return (
-    <Link to="/login" className="text-on-primary">Sign Out</Link>
+    <div>
+      <Link to={urls.LOGIN} className="text-on-primary">Sign Out</Link>
+    </div>
   );
 }
-
-export default Account

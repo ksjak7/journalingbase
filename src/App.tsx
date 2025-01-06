@@ -1,39 +1,38 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./pages/Login";
-import NavBar from "./widgets/NavBar";
-import router from "../router.url.json"
-import SuspendedElement from "./widgets/SuspendedElement";
+import urls from "../router.url.json"
 import Journal from "./pages/Journal";
 import Account from "./pages/Account";
 import Dashboard from "./pages/Dashboard";
+import NavBar from "./widgets/NavBar";
+import env from "../env.json"
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-function App() {
+export default function App() {
   return (
-    <div className="w-full h-full flex flex-col">
-      <BrowserRouter>
-        <Routes>
-            <Route key="/" path="/" element={
-              <SuspendedElement element={<Login/>}/>
-            }/>
-            <Route key={router.LOGIN} path={router.LOGIN} element={
-              <SuspendedElement element={<Login/>}/>
+    <GoogleOAuthProvider clientId={env.CLIENT_ID}>
+      <div className="max-w-screen w-full max-h-screen h-full flex flex-col overflow-hidden">
+        <BrowserRouter>
+          <Routes>
+            <Route key={urls.LOGIN} path={urls.LOGIN} element={
+              <Login />
             } />
-            <Route key={router.JOURNAL} path={router.JOURNAL} element={
-              <SuspendedElement element={<Journal/>}/>
+            <Route key={urls.JOURNAL} path={urls.JOURNAL} element={
+              <Journal />
             } />
-            <Route key={router.DASHBOARD} path={router.DASHBOARD} element={
-              <SuspendedElement element={<Dashboard/>}/>
+            <Route key={urls.DASHBOARD} path={urls.DASHBOARD} element={
+              <Dashboard />
             } />
-            <Route key={router.ACCOUNT} path={router.ACCOUNT} element={
-              <SuspendedElement element={<Account/>}/>
+            <Route key={urls.ACCOUNT} path={urls.ACCOUNT} element={
+              <Account />
             } />
-        </Routes>
-        <NavBar/>
-      </BrowserRouter>
-    </div>
+          </Routes>
+          <NavBar />
+
+        </BrowserRouter>
+      </div>
+    </GoogleOAuthProvider>
   );
 }
-
-export default App 

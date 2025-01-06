@@ -1,14 +1,18 @@
-import { Link } from "react-router-dom"
-import router from "../../router.url.json"
+import { Link, useLocation } from "react-router-dom"
+import urls from "../../router.url.json"
 
-function NavBar() {
+export default function NavBar() {
+  const path = useLocation()
+
+  if (path.pathname == "/") {
+    return <></>
+  }
+
   return (
     <div className="w-full h-16 absolute bottom-0 flex justify-around">
-      <Link to={router.DASHBOARD} className="material-icons floater text-center h-fit">dashboard</Link>
-      <Link to={router.JOURNAL} className="material-icons floater text-center h-fit">draw</Link>
-      <Link to={router.ACCOUNT} className="material-icons floater text-center h-fit">account_circle</Link>
+      <Link to={urls.DASHBOARD} replace className="material-icons floater text-center h-fit hover:bg-[var(--primary-accent)] hover:-translate-y-2 transition-all">dashboard</Link>
+      <Link to={urls.JOURNAL} replace className="material-icons floater text-center h-fit hover:bg-[var(--secondary-accent)] hover:-translate-y-2 transition-all">draw</Link>
+      <Link to={urls.ACCOUNT} replace className="material-icons floater text-center h-fit hover:bg-[var(--tertiary-accent)] hover:-translate-y-2 transition-all">account_circle</Link>
     </div>
   )
 }
-
-export default NavBar

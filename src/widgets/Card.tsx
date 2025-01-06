@@ -1,4 +1,4 @@
-function Card(
+export default function Card(
   {
     title,
   }:
@@ -12,5 +12,3 @@ function Card(
     </div>
   )
 }
-
-export default Card
