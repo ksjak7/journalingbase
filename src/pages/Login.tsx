@@ -1,29 +1,30 @@
 import "../App.css";
-import urls from "../../router.url.json"
+import urls from "../../router.url.json";
 import { GoogleLogin } from "@react-oauth/google";
 import { Link } from "react-router-dom";
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 export default function Login(this: any) {
-  
   return (
     <>
       <div className="grid grid-cols-2 m-auto text-center gap-1 items-center h-fit">
-        <label className="text-on-primary bg-[var(--primary)] outline">Journaling</label>
+        <label className="text-on-primary bg-[var(--primary)] outline">
+          Journaling
+        </label>
         <GoogleLogin
-          onSuccess={credentialResponse => {
-            console.log(credentialResponse)
+          onSuccess={(credentialResponse) => {
+            console.log(credentialResponse);
           }}
           onError={() => {
-            console.log("Login Failed")
+            console.log("Login Failed");
           }}
           size="large"
           auto_select
-          />
+        />
         <Link to={urls.DASHBOARD}>Dashboard</Link>
       </div>
     </>
-  )
+  );
 }
 
 // const [usernameInput, setUsernameInput] = useState("")

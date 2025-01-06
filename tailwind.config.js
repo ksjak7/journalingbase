@@ -4,11 +4,10 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'grid': "url('./src/assets/background.png')",
-        'grid-sm': "url('./src/assets/background_sm.png')"
-      }
+        grid: "url('./src/assets/background.png')",
+        "grid-sm": "url('./src/assets/background_sm.png')",
+      },
     },
   },
   plugins: [],
-}
-
+};
