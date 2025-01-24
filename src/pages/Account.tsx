@@ -6,7 +6,9 @@ import urls from "../../router.url.json";
 export default function Account() {
   return (
     <div>
-      <Link to={urls.LOGIN} className="text-on-primary">
+      <Link to={urls.LOGIN} onClick={() => {
+        sessionStorage.clear()
+      }} className="text-on-primary">
         Sign Out
       </Link>
     </div>

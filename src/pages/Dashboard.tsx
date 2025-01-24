@@ -5,6 +5,7 @@ import Card from "../widgets/Card";
 export default function Dashboard() {
   return (
     <div>
+      <img src={sessionStorage.getItem("photo_url") || ""}></img>
       <Card title="Dashboard" />
     </div>
   );

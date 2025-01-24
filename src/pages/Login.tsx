@@ -1,28 +1,54 @@
 import "../App.css";
-import urls from "../../router.url.json";
-import { GoogleLogin } from "@react-oauth/google";
-import { Link } from "react-router-dom";
+import urls from "../../router.url.json"
+import env from "../../env.json"
+import { useGoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
+
+type ResponseData = {
+  accountId: string,
+  name: string,
+  photoUrl: string,
+}
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-export default function Login(this: any) {
+export default function Login() {
+  const navigate = useNavigate()
+  const loginPress = useGoogleLogin({
+    onSuccess: async (credentialResponse) => {
+      // const response = await fetch(`https://content-people.googleapis.com/v1/people/me?personFields=names,emailAddresses,photos&sources=READ_SOURCE_TYPE_PROFILE&key=${env.GAPI_PERSON_API}`,
+      //   {
+      //     method: "GET",
+      //     headers: {
+      //       Authorization: `Bearer ${credentialResponse.access_token}`
+      //     }
+      //   }
+      // ).then(data => data.json()) as ResponseData
+      const response = await fetch(`${env.JOURNALING_API_URL}/user?accessToken=${credentialResponse.access_token}`)
+        .then(data => data.json()) as ResponseData
+      localStorage.setItem("account_id", response.accountId)
+      localStorage.setItem("display_name", response.name)
+      localStorage.setItem("photo_url", response.photoUrl)
+      navigate(urls.DASHBOARD)
+    }
+  })
+
+
+
   return (
     <>
-      <div className="grid grid-cols-2 m-auto text-center gap-1 items-center h-fit">
-        <label className="text-on-primary bg-[var(--primary)] outline">
+      <div className="grid grid-cols-2 m-auto text-center gap-2 items-center h-fit">
+        <label className="h-[40px] flex items-center outline outline-[var(--tertiary)] outline-1 drop-shadow-md rounded-2xl rounded-r-none bg-[var(--secondary)] p-2 text-on-secondary">
           Journaling
         </label>
-        <GoogleLogin
-          onSuccess={(credentialResponse) => {
-            console.log(credentialResponse);
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
-          size="large"
-          auto_select
-        />
-        <Link to={urls.DASHBOARD}>Dashboard</Link>
+        <button
+          onClick={() => loginPress()}
+          className="h-[40px] flex items-center outline outline-[var(--tertiary)] outline-1 drop-shadow-md rounded-2xl rounded-l-none bg-[var(--secondary)] p-2 text-on-secondary">
+          <img src="googleicon.svg" className="h-[24px]" />
+        </button>
+
+        {/* <Link to={urls.DASHBOARD}>Dashboard</Link> */}
       </div>
+
     </>
   );
 }
