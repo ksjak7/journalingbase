@@ -2,6 +2,7 @@ import "../App.css";
 import { URLS, ENV, SESSIONDATA } from "../models/enums.ts"
 import { useGoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
+import { journalingApi } from "../utils/requests.ts";
 
 type ResponseData = {
   accountId: string,
@@ -16,12 +17,11 @@ export default function Login() {
   const loginPress = useGoogleLogin({
     onSuccess: async (credentialResponse) => {
       console.log(credentialResponse)
-      const response = await fetch(`${ENV.JOURNALING_API_URL}/user?accessToken=${credentialResponse.access_token}`)
+      const response = await journalingApi(navigate, `${ENV.JOURNALING_API_URL}/user?accessToken=${credentialResponse.access_token}`)
         .then(data => data.json()) as ResponseData
       localStorage.setItem(SESSIONDATA.ACCOUNT_ID, response.accountId)
       localStorage.setItem(SESSIONDATA.DISPLAY_NAME, response.name)
       localStorage.setItem(SESSIONDATA.PHOTO_URL, response.photoUrl)
-      localStorage.setItem(SESSIONDATA.SESSION_TOKEN, response.sessionToken)
       navigate(URLS.DASHBOARD)
     },
   })

@@ -1,5 +1,5 @@
 export enum ENV {
-  JOURNALING_API_URL = "https://journalingapi.vercel.app/api",//"http://localhost:3000/api",
+  JOURNALING_API_URL = "http://localhost:3000/api",//"https://journalingapi.vercel.app/api",//
   CLIENT_ID = "610343675973-n15t9cnohs3b0s2ejestdfh5a22qr9k7.apps.googleusercontent.com",
 }
 

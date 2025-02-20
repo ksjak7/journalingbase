@@ -1,10 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { ENV, SESSIONDATA, URLS } from "../models/enums.ts"
 import { useEffect } from "react"
-
-type ResponseData = {
-  accountId: number | null
-}
+import { journalingApi } from "../utils/requests.ts"
 
 export default function Root() {
   const navigate = useNavigate()
@@ -13,10 +10,9 @@ export default function Root() {
       const accountId: number = Number.parseInt(localStorage.getItem(SESSIONDATA.ACCOUNT_ID) || "")
       const sessionToken: string = localStorage.getItem(SESSIONDATA.SESSION_TOKEN) || ""
 
-      console.log(`accountId: ${accountId}\nsessionToken: ${sessionToken}`)
       if (accountId
         && sessionToken
-        && await validateSessionToken(accountId, sessionToken)) {
+        && await validateSessionToken()) {
         navigate(URLS.DASHBOARD)
       } else {
         localStorage.clear()
@@ -24,20 +20,15 @@ export default function Root() {
       }
     }
 
-    async function validateSessionToken(accountId: number, sessionToken: string): Promise<boolean> {
-      const response = await fetch(
+    async function validateSessionToken(): Promise<boolean> {
+      const response = await journalingApi(
+        navigate,
         `${ENV.JOURNALING_API_URL}/validateSession`,
         {
-          method: "GET",
-          headers: {
-            "SessionToken": sessionToken
-          }
+          method: "GET"
         })
-        .then(data => data.json()) as ResponseData
-
-      console.log(`response: ${JSON.stringify(response)}`)
       
-      return accountId == response.accountId
+      return response.status == 200
     }
 
     handleSession()
